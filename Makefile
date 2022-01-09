@@ -1,4 +1,8 @@
-all:00.out 01.out 02.out
-%.out:%.R
+SOURCES=$(wildcard *.R)
+OBJECTS=$(SOURCES:.R=.out)
+all: $(OBJECTS)
+%.out: %.R
 	Rscript $< > $@
+clean:
+	rm -rf *~ *.out *.pdf
 
