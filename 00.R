@@ -14,21 +14,25 @@ T <- d[["TEMP.LEVEL0..degree_Celsius."]]
 Patm <- d[["ATMS.LEVEL0..hectopascal."]] # not used here
 
 # Extract a segment that looks interesting
-look <- 900:1000
 look <- 700:1000
 t <- t[look]
 T <- T[look]
 Patm <- Patm[look]
 lon <- lon[look]
 lat <- lat[look]
-table(is.finite(T))
-# Remove NA values (and there are lots of them)
+print(table(is.finite(T)))
+# Remove NA values (about half the data)
 ok <- is.finite(T)
 t <- t[ok]
 T <- T[ok]
 lon <- lon[ok]
 lat <- lat[ok]
+Patm <- Patm[ok]
+dt <- mean(diff(as.numeric(t)))
+cat("dt=", dt, "s (i.e. close to 1h)\n")
 
+if (!interactive())
+    pdf("00.pdf")
 par(mar=c(3.3,3.3,1,1), mgp=c(2,0.7,0))
 hour <- as.numeric(difftime(t, t[1], unit="hours"))
 cmt <- colormap(z=hour, col=oceColorsViridis)
@@ -39,4 +43,8 @@ plot(lon, lat,asp=1/cos(pi/180*mean(lat)),
     pch=20, col=cmt$zcol)
 grid()
 
-save(lon, lat, t, T, Patm, file="db.rda")
+save(lon, lat, t, T, Patm, file="drifting_buoy.rda")
+
+if (!interactive())
+    dev.off()
+
