@@ -4,5 +4,5 @@ all: $(OBJECTS)
 %.out: %.R
 	Rscript $< > $@
 clean:
-	rm -rf *~ *.out *.pdf
+	rm -rf *~ *.out *.pdf *.rda
 

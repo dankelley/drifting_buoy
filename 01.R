@@ -1,12 +1,13 @@
 library(oce)
-load("drifting_buoy.rda")
+load("drifter.rda")
+attach(db)
 
 if (!interactive())
     pdf("01.pdf")
 
 par(mfcol=c(2,2))
 oce.plot.ts(t, Patm, grid=TRUE, drawTimeRange=FALSE)
-oce.plot.ts(t, T, grid=TRUE, drawTimeRange=FALSE)
+oce.plot.ts(t, Tatm, grid=TRUE, drawTimeRange=FALSE)
 oce.plot.ts(t, lon, grid=TRUE, drawTimeRange=FALSE)
 oce.plot.ts(t, lat, grid=TRUE, drawTimeRange=FALSE)
 

@@ -1,5 +1,6 @@
 library(oce)
-load("drifting_buoy.rda")
+load("drifter.rda")
+attach(db)
 
 if (!interactive())
     pdf("02.pdf")
